@@ -85,10 +85,10 @@ colunas[7] = colunas[7]/100
 
 #Plotando as variaveis
 
-variaveis = ['u0(iz,1)', 'v0(iz,1)', 'ugeos(iz)', 'uy(iz,1)', 'vy(iz,1)', 'w0(iz)', 'omega(iz)', 'T0(iz,1)', 'Ty(iz,1)', 'Tyy(iz,1)', 'rho(iz)', 'press(iz)', 'P0(iz)', 'Py(iz)', 'Pyy(iz)']   
+variaveis = ['u0', 'v0', 'ugeos', 'uy', 'vy', 'w0', 'omega', 'T0', 'Ty', 'Tyy', 'rho', 'press', 'P0', 'Py', 'Pyy']   
 z = colunas[0]/1000
 
-units = [r'u0 (m $\rms^{-1}$)',r'v0 (m $\rms^{-1}$)',r'ugeos (m $\rms^{-1}$)',r'uy ($\rms^{-1}$)',r'vy ($\rms^{-1}$)',r'w0 (m $\rms^{-1}$)', r'$\mathrm{\omega}$ (hPa s$^{-1}$)','T0 (K)',r'Ty (K $\rmm^{-1}$)',r'Tyy (K $\rmm^{-2}$)',r'$\mathrm{\rho}$ (kg $\rmm^{-3}$)','p (hPa)',r'P0 ($\rmm^{2}$ $\rms^{-2}$ $\rmK^{-1}$)',r'Py (m $\rms^{-2}$ $\rmK^{-1}$)',r'Pyy ($\rms^{-2}$ $\rmK^{-1}$)']
+units = [r'$\rmu_{0}$ (m $\rms^{-1}$)',r'$\rmv_{0}$ (m $\rms^{-1}$)',r'$\rmu_{G}$ (m $\rms^{-1}$)',r'$\rmu_{y}$ ($\rms^{-1}$)',r'$\rmv_{y}$ ($\rms^{-1}$)',r'$\rmw_{0}$ (m $\rms^{-1}$)', r'$\mathrm{\omega}$ (hPa s$^{-1}$)',r'$\rmT_{0}$ (K)',r'$\rmT_{y}$ (K $\rmm^{-1}$)',r'$\rmT_{yy}$ (K $\rmm^{-2}$)',r'$\mathrm{\rho}$$\rm_{0}$ (kg $\rmm^{-3}$)','p (hPa)',r'$\mathrm{\Pi}$$\rm_{0}$ ($\rmm^{2}$ $\rms^{-2}$ $\rmK^{-1}$)',r'$\mathrm{\Pi}$$\rm_{y}$ (m $\rms^{-2}$ $\rmK^{-1}$)',r'$\mathrm{\Pi}$$\rm_{yy}$ ($\rms^{-2}$ $\rmK^{-1}$)']
 
 
 #TEM QUE RODAR DUAS VEZES PQ NA PRIMEIRA DA UM ERRO NO PRIMEIRO PLOT, AS LETRAS FICAM PEQUENAS
@@ -104,11 +104,12 @@ for k in range(0,len(variaveis)):
     ax.plot(colunas[k+1],z,linewidth=5,color='crimson')
     if k == 1:
         ax.plot([0,0],[0,12],color='k',linewidth=2)
-    plt.xlabel(units[k])
-    plt.ylabel('z (km)')
+    plt.xlabel(units[k],size='49')
+    plt.ylabel('z (km)',size='49')
     plt.ylim([0,12])
-    #plt.xlim([290,370])
-    ax.grid('True')
+    if k == 0:
+        plt.xlim([0,50])
+    ax.grid('True',color='k')
     ax.tick_params('both', length=23, width=2, which='major')
     ax.minorticks_on()
     ax.tick_params('both', length=15, width=1, which='minor')
@@ -117,8 +118,8 @@ for k in range(0,len(variaveis)):
         ax.xaxis.get_major_formatter().set_scientific(True)
         ax.xaxis.get_major_formatter().set_powerlimits((0, 0))
         ax.xaxis.set_tick_params(labeltop=False)
-        ax.xaxis.offsetText.set_fontsize(30)
-    plt.subplots_adjust(bottom=0.11, top=0.98, hspace=0.15, right=0.95,left=0.15)
+        ax.xaxis.offsetText.set_fontsize(41)
+    plt.subplots_adjust(bottom=0.123, top=0.98, hspace=0.15, right=0.95,left=0.16)
     plt.savefig(f'/home/owner/Documents/jetstream_paper/figures/{variaveis[k]}',dpi=100)
     #im = Image.open('/home/owner/Documents/jetstream_paper/figures/python_figure.png')    
     #im.show()  
@@ -135,18 +136,19 @@ fig, ax = plt.subplots(figsize=(12, 15))
 # plt.title(r'U$_\max$ = 5 m $\rms^{-1}$        U$_\min$ = 5 m $\rms^{-1}$',x=0.5, y=1.02)
 plt.rcParams.update({"font.size": 41})
 plt.rcParams['axes.linewidth'] = 2
-ax.plot(colunas[1],z,linewidth=5,color='crimson',label=variaveis[0])
-ax.plot(colunas[3],z,linewidth=5,color='blue',label=variaveis[2],linestyle='--')
-plt.xlabel(r'u0 (m $\rms^{-1}$)')
-plt.ylabel('z (km)')
+ax.plot(colunas[1],z,linewidth=5,color='crimson',label=r'$\rmu_{0}$',zorder=0)
+ax.scatter(colunas[3][::10],z[::10],color='k',label=r'$\rmu_{G}$',s=50,zorder=1)
+plt.xlabel(r'$\rmu_{0}$ (m $\rms^{-1}$)',size='49')
+plt.ylabel('z (km)',size='49')
 ax.legend()
 plt.ylim([0,12])
-plt.xlim([0,55])
-ax.grid('True')
+plt.xlim([0,50])
+plt.xticks([0,10,20,30,40,50])
+ax.grid('True',color='k')
 ax.tick_params('both', length=23, width=2, which='major')
 ax.minorticks_on()
 ax.tick_params('both', length=15, width=1, which='minor')
-plt.subplots_adjust(bottom=0.11, top=0.98, hspace=0.15, right=0.95,left=0.15)
+plt.subplots_adjust(bottom=0.123, top=0.98, hspace=0.15, right=0.95,left=0.16)
 plt.savefig(f'/home/owner/Documents/jetstream_paper/figures/{variaveis[0]}_and_{variaveis[2]}',dpi=100)
 #im = Image.open('/home/owner/Documents/jetstream_paper/figures/python_figure.png')    
 #im.show()  
@@ -163,12 +165,12 @@ plt.rcParams['axes.linewidth'] = 2
 ax.plot(colunas[4],z,linewidth=5,color='crimson',label=variaveis[3])
 ax.plot(colunas[5],z,linewidth=5,color='blue',label=variaveis[4],linestyle='--')
 ax.plot([0,0],[0,12],color='k',linewidth=2)
-plt.xlabel(r'uy, vy ($\rms^{-1}$)')
-plt.ylabel('z (km)')
+plt.xlabel(r'$\rmu_{y}$, $\rmv_{y}$ ($\rms^{-1}$)',size='49')
+plt.ylabel('z (km)',size='49')
 ax.legend()
 plt.ylim([0,12])
 plt.xlim([-0.000002,0.0000045])
-ax.grid('True')
+ax.grid('True',color='k')
 ax.tick_params('both', length=23, width=2, which='major')
 ax.minorticks_on()
 ax.tick_params('both', length=15, width=1, which='minor')
@@ -179,8 +181,8 @@ ax.xaxis.set_major_formatter(plt.matplotlib.ticker.ScalarFormatter(useMathText=T
 ax.xaxis.get_major_formatter().set_scientific(True)
 ax.xaxis.get_major_formatter().set_powerlimits((0, 0))
 ax.xaxis.set_tick_params(labeltop=False)
-ax.xaxis.offsetText.set_fontsize(30)
-plt.subplots_adjust(bottom=0.11, top=0.98, hspace=0.15, right=0.95,left=0.15)
+ax.xaxis.offsetText.set_fontsize(41)
+plt.subplots_adjust(bottom=0.123, top=0.98, hspace=0.15, right=0.95,left=0.16)
 plt.savefig(f'/home/owner/Documents/jetstream_paper/figures/{variaveis[3]}_and_{variaveis[4]}',dpi=100)
 #im = Image.open('/home/owner/Documents/jetstream_paper/figures/python_figure.png')    
 #im.show()  
