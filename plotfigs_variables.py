@@ -72,7 +72,7 @@ def read_columns_from_txt(file_path):
         return []
 
 
-colunas = read_columns_from_txt('/home/owner/Downloads/control.txt')
+colunas = read_columns_from_txt('/home/owner/Documents/jetstream_paper/control.txt')
 
 
 colunas = np.array([[float(value) for value in row] for row in colunas])
@@ -97,8 +97,6 @@ for k in range(0,len(variaveis)):
     
     
     fig, ax = plt.subplots(figsize=(12, 15))
-    #plt.figtext(0.30, 0.90, "\u263c", fontsize='large', color='y', ha ='right')
-    #plt.title(r'U$_\max$ = 5 m $\rms^{-1}$        U$_\min$ = 5 m $\rms^{-1}$',x=0.5, y=1.02)
     plt.rcParams.update({"font.size": 41})
     plt.rcParams['axes.linewidth'] = 2
     ax.plot(colunas[k+1],z,linewidth=5,color='crimson')
@@ -162,8 +160,8 @@ fig, ax = plt.subplots(figsize=(12, 15))
 # plt.title(r'U$_\max$ = 5 m $\rms^{-1}$        U$_\min$ = 5 m $\rms^{-1}$',x=0.5, y=1.02)
 plt.rcParams.update({"font.size": 41})
 plt.rcParams['axes.linewidth'] = 2
-ax.plot(colunas[4],z,linewidth=5,color='crimson',label=variaveis[3])
-ax.plot(colunas[5],z,linewidth=5,color='blue',label=variaveis[4],linestyle='--')
+ax.plot(colunas[4],z,linewidth=5,color='crimson',label=r'$\rmu_{y}$')
+ax.plot(colunas[5],z,linewidth=5,color='blue',label=r'$\rmv_{y}$',linestyle='--')
 ax.plot([0,0],[0,12],color='k',linewidth=2)
 plt.xlabel(r'$\rmu_{y}$, $\rmv_{y}$ ($\rms^{-1}$)',size='49')
 plt.ylabel('z (km)',size='49')
@@ -174,9 +172,6 @@ ax.grid('True',color='k')
 ax.tick_params('both', length=23, width=2, which='major')
 ax.minorticks_on()
 ax.tick_params('both', length=15, width=1, which='minor')
-# ax.ticklabel_format(axis='both', style='sci',scilimits=(0,0),useMathText=True)
-# ax.xaxis.get_offset_text().set_fontsize(fontsize=30)
-# ax.xaxis.offsetText.set_visible(False)
 ax.xaxis.set_major_formatter(plt.matplotlib.ticker.ScalarFormatter(useMathText=True))
 ax.xaxis.get_major_formatter().set_scientific(True)
 ax.xaxis.get_major_formatter().set_powerlimits((0, 0))
